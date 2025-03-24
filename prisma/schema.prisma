@@ -1,0 +1,88 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User{
+  id String @id @default(uuid())
+  name String
+  email String
+  password String
+  address String?
+  stripe_customer_id String?
+
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  @@map("users")
+  subscription Subscription?
+  assignments Assignment[]
+  customers Customer[]
+  schedulings Scheduling[]
+}
+
+model Subscription{
+  id String @id
+  status String
+  priceId String
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  @@map("subscriptions")
+  userId String @unique
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Assignment{
+  id String @id @default(uuid())
+  name String
+  price Float
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  @@map("assignments")
+  userId String
+  user User @relation(fields: [userId], references: [id])
+  schedulings Scheduling[]
+}
+
+model Customer{
+  id String @id @default(uuid())
+  name String
+  phone String
+  schedules_count Int @default(0)
+  total_spent Float @default(0)
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  @@map("customers")
+  user_id String
+  user User @relation(fields: [user_id], references: [id])
+  schedulings Scheduling[]
+}
+
+model Scheduling{
+  id String @id @default(uuid())
+  time DateTime
+  finished Boolean @default(false)
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  @@map("schedulings")
+  user_id String
+  customer_id String
+  assignment_id String
+  user User @relation(fields: [user_id], references: [id])
+  customer Customer @relation(fields: [customer_id], references: [id])
+  assignment Assignment @relation(fields: [assignment_id], references: [id])
+}
