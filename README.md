@@ -5,19 +5,6 @@ O BeautyManager é um sistema web no modelo SaaS (Software as a Service) desenvo
 
 ---
 
-## 📖 **Índice**
-1. [Links da aplicação](#🔗-links-da-aplicação)
-2. [Destaques](#✅-destaques)  
-3. [Tecnologias Utilizadas](#⚙️-tecnologias-utilizadas)
-4. [Relação entre tabelas do banco](#⇅-relação-entre-tabelas-do-banco)
-5. [Estrutura do Projeto](#📁-estrutura-do-projeto)   
-6. [Como Executar o Projeto](#🚀-como-executar-o-projeto)
-7. [Contribuição](#🤝-contribuição)  
-8. [Licença](#📄-licença)  
-9. [Contato](#📧-contato)  
-
----
-
 ## 🔗 Links da aplicação
 - [Deploy back-end](https://beauty-manager-back-end.vercel.app/)
 - [Deploy front-end](https://beauty-manager-front-end.vercel.app/)
